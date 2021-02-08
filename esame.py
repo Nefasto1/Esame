@@ -4,7 +4,7 @@ class ExamException(Exception):
 class CSVTimeSeriesFile:
     #name
 
-    # Inizializzo l'oggetto
+    # Inizializzo l'oggetto con il nome del file
     def __init__(self, name):
         self.name = name;
 
@@ -18,9 +18,8 @@ class CSVTimeSeriesFile:
             raise ExamException('Errore nome file, File non Trovato')
         except Exception as e:
             raise ExamException('Errore apertura del file, {}' .format(e))         
-        
 
-        value = []   # Inizializzo l'array che conterrà l'output
+        time_series = []   # Inizializzo l'array che conterrà l'output
         prev = 0     # Inizializzo la variabile che conterrà l'epoch precedente
 
         # Ciclo per ogni riga del file
@@ -40,7 +39,7 @@ class CSVTimeSeriesFile:
 
                 # Controllo che l'epoch sia di tipo numerico e lo converto in intero
                 try:
-                    element[0] = float(element[0])
+                    element[0] = int(float(element[0]))
                 except Exception as e:
                     valida = False
                     
@@ -50,11 +49,14 @@ class CSVTimeSeriesFile:
                 except Exception as e:
                     valida = False
 
+
                 # Se una variabile non è di tipo corretto salto la riga 
                 if valida:
+                    # Se l'epoch corrente è maggiore di quello precedente i dati sono validi e li aggiungo alla lista in uscita 
                     if prev < element[0]:
                         prev = element[0]
-                        value.append([element[0], element[1]])
+                        time_series.append(element)
+                    
                     # Se l'epoch è uguale a quello precedente la riga è duplicata, quindi restituisce errore
                     elif prev == element[0]:
                         raise ExamException('Errore, Riga Duplicata')
@@ -68,7 +70,7 @@ class CSVTimeSeriesFile:
             else:
                 print('\nRiga non valida, Numero elementi non valido')
 
-        return value
+        return time_series
 
 def daily_stats(time_series):
 
