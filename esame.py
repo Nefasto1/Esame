@@ -69,6 +69,7 @@ class CSVTimeSeriesFile:
                     print('\nRiga non valida, Tipo elementi non valido')
             else:
                 print('\nRiga non valida, Numero elementi non valido')
+            time_series.append(element)
 
         return time_series
 
@@ -115,4 +116,5 @@ def daily_stats(time_series):
             # Sommo la temperatura alla variabile che conterrà la media
             med += element[1]
     
+    value.append([max, min, med/c])
     return value
