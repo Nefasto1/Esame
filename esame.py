@@ -89,7 +89,7 @@ def daily_stats(time_series):
                 # Divido la somma delle temperature registrata nella giornata per il numero di rilevazioni effettuate
                 med /= c
                 # Aggiungo il valore alla lista di output
-                value.append([max, min, med])
+                value.append([min, max, med])
 
             # Inizializzo i valori delle variabili al primo valore del nuovo giorno
             day = epoch
