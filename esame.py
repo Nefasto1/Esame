@@ -116,5 +116,5 @@ def daily_stats(time_series):
             # Sommo la temperatura alla variabile che conterrà la media
             med += element[1]
     
-    value.append([max, min, med/c])
+    value.append([min, max, med/c])
     return value
